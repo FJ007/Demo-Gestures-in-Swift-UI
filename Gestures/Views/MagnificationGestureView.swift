@@ -13,7 +13,7 @@ struct MagnificationGestureView: View {
         NavigationView{
             VStack {
                 MagnificationGenericView(){
-                    Image("foto_leon")
+                    Image("picture_lion")
                         .resizable()
                         .scaledToFill()
                         .frame(width: UIScreen.main.bounds.width,

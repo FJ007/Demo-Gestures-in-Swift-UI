@@ -12,18 +12,25 @@ import SwiftUI
 
 struct MagnificationGenericView<T>: View where T: View {
     
+    @State private var currentAmount: CGFloat = 0
+    @State private var finalAmount: CGFloat = 1
+    
     @GestureState private var magnifyBy = CGFloat(1.0)
     
     var content: () -> T
     
     var body: some View {
         content()
-            .scaleEffect(magnifyBy)
+            .scaleEffect(currentAmount + finalAmount)
             .gesture(
                 MagnificationGesture()
-                    .updating($magnifyBy) { (currentState, gestureState, transaction) in
-                        gestureState = currentState
-                }
+                    .onChanged { amount in
+                        self.currentAmount = amount - 1
+                    }
+                    .onEnded { amount in
+                        self.finalAmount += self.currentAmount
+                        self.currentAmount = 0
+                    }
             )
     }
 }
@@ -31,7 +38,7 @@ struct MagnificationGenericView<T>: View where T: View {
 struct MagnificationGenericView_Previews: PreviewProvider {
     static var previews: some View {
         MagnificationGenericView() {
-            Image("foto_leon")
+            Image("picture_lion")
         }
     }
 }
