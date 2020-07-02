@@ -21,8 +21,8 @@ struct MagnificationGenericView<T>: View where T: View {
             .scaleEffect(magnifyBy)
             .gesture(
                 MagnificationGesture()
-                    .updating($magnifyBy){ (currentState, gestureState, transaction) in
-                        gestureState = currentState.magnitude
+                    .updating($magnifyBy) { (currentState, gestureState, transaction) in
+                        gestureState = currentState
                 }
             )
     }
@@ -32,7 +32,6 @@ struct MagnificationGenericView_Previews: PreviewProvider {
     static var previews: some View {
         MagnificationGenericView() {
             Image("foto_leon")
-            
         }
     }
 }
